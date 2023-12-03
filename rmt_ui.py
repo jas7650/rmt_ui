@@ -12,6 +12,9 @@ LABEL_WIDTH = 10
 VALUE_HEIGHT = 2
 VALUE_WIDTH = 10
 
+PAUSED = 0
+PLAYING = 1
+
 def increase_mode():
     global mode, mode_value_label
     if mode < HIGH_THRESHOLD:
@@ -53,10 +56,31 @@ def decrease_spin():
         spin -= 1
         spin_value_label.configure(text=spin)
 
+
+def set_play():
+    global status, status_value_label
+    status = PLAYING
+    status_value_label.configure(text=get_status(status))
+
+
+def set_pause():
+    global status, status_value_label
+    status = PAUSED
+    status_value_label.configure(text=get_status(status))
+
+
+def get_status(status):
+    if status == PLAYING:
+        return "Playing"
+    else:
+        return "Paused"
+
+
 root = Tk()
 mode = 0
 speed = 0
 spin = 0
+status = "Paused"
 
 m1 = PanedWindow()
 m1.pack(fill = BOTH, expand = 1)
@@ -99,5 +123,18 @@ increase_button = Button(spin_frame, text="+", height=BUTTON_HEIGHT, width=BUTTO
 increase_button.pack()
 decrease_button = Button(spin_frame, text="-", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=decrease_spin)
 decrease_button.pack()
+
+status_frame = Frame(root)
+status_frame.pack()
+m1.add(status_frame)
+
+status_label = Label(status_frame, text="Status", height=LABEL_HEIGHT, width=LABEL_WIDTH)
+status_label.pack()
+status_value_label = Label(status_frame, text=status, height=VALUE_HEIGHT, width=VALUE_WIDTH)
+status_value_label.pack()
+play_button = Button(status_frame, text="Play", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_play)
+play_button.pack()
+pause_button = Button(status_frame, text="Pause", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_pause)
+pause_button.pack()
 
 root.mainloop()
