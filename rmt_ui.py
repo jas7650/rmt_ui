@@ -1,32 +1,36 @@
 from tkinter import *
+from Mode import Mode
+
+LOW_THRESHOLD_MODE = Mode.getValues()[0]
+HIGH_THRESHOLD_MODE = Mode.getValues()[len(Mode.getValues())-1]
 
 LOW_THRESHOLD = 0
 HIGH_THRESHOLD = 9
 
 BUTTON_HEIGHT = 4
-BUTTON_WIDTH = 10
+BUTTON_WIDTH = 20
 
 LABEL_HEIGHT = 2
-LABEL_WIDTH = 10
+LABEL_WIDTH = 20
 
 VALUE_HEIGHT = 2
-VALUE_WIDTH = 10
+VALUE_WIDTH = 20
 
-PAUSED = 0
-PLAYING = 1
+STOPPED = 0
+RUNNING = 1
 
 def increase_mode():
     global mode, mode_value_label
-    if mode < HIGH_THRESHOLD:
+    if mode < HIGH_THRESHOLD_MODE:
         mode += 1
-        mode_value_label.configure(text=mode)
+        mode_value_label.configure(text=Mode.getModeString(mode))
 
 
 def decrease_mode():
     global mode, mode_value_label
-    if mode > LOW_THRESHOLD:
+    if mode > LOW_THRESHOLD_MODE:
         mode -= 1
-        mode_value_label.configure(text=mode)
+        mode_value_label.configure(text=Mode.getModeString(mode))
 
 
 def increase_speed():
@@ -57,30 +61,30 @@ def decrease_spin():
         spin_value_label.configure(text=spin)
 
 
-def set_play():
+def set_start():
     global status, status_value_label
-    status = PLAYING
+    status = RUNNING
     status_value_label.configure(text=get_status(status))
 
 
-def set_pause():
+def set_stop():
     global status, status_value_label
-    status = PAUSED
+    status = STOPPED
     status_value_label.configure(text=get_status(status))
 
 
 def get_status(status):
-    if status == PLAYING:
-        return "Playing"
+    if status == RUNNING:
+        return "Running"
     else:
-        return "Paused"
+        return "Stopped"
 
 
 root = Tk()
 mode = 0
 speed = 0
 spin = 0
-status = "Paused"
+status = "Stopped"
 
 m1 = PanedWindow()
 m1.pack(fill = BOTH, expand = 1)
@@ -91,7 +95,7 @@ m1.add(mode_frame)
 
 mode_label = Label(mode_frame, text="Mode", height=LABEL_HEIGHT, width=LABEL_WIDTH)
 mode_label.pack()
-mode_value_label = Label(mode_frame, text=mode, height=VALUE_HEIGHT, width=VALUE_WIDTH)
+mode_value_label = Label(mode_frame, text=Mode.getModeString(mode), height=VALUE_HEIGHT, width=VALUE_WIDTH)
 mode_value_label.pack()
 increase_button = Button(mode_frame, text="+", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=increase_mode)
 increase_button.pack()
@@ -132,9 +136,9 @@ status_label = Label(status_frame, text="Status", height=LABEL_HEIGHT, width=LAB
 status_label.pack()
 status_value_label = Label(status_frame, text=status, height=VALUE_HEIGHT, width=VALUE_WIDTH)
 status_value_label.pack()
-play_button = Button(status_frame, text="Play", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_play)
+play_button = Button(status_frame, text="Start", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_start)
 play_button.pack()
-pause_button = Button(status_frame, text="Pause", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_pause)
+pause_button = Button(status_frame, text="Stop", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_stop)
 pause_button.pack()
 
 root.mainloop()
