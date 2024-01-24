@@ -134,7 +134,7 @@ m1.add(status_frame)
 
 status_label = Label(status_frame, text="Status", height=LABEL_HEIGHT, width=LABEL_WIDTH)
 status_label.pack()
-status_value_label = Label(status_frame, text=status, height=VALUE_HEIGHT, width=VALUE_WIDTH)
+status_value_label = Label(status_frame, text=status, height=VALUE_HEIGHT, width=VALUE_WIDTH, bg='red')
 status_value_label.pack()
 play_button = Button(status_frame, text="Start", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_start)
 play_button.pack()
