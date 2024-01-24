@@ -19,7 +19,7 @@ VALUE_WIDTH = 20
 STOPPED = 0
 RUNNING = 1
 
-FONT_SIZE = 20
+FONT_SIZE = 12
 
 def increase_mode():
     global mode, mode_value_label
