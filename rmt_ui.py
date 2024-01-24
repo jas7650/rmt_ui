@@ -19,6 +19,8 @@ VALUE_WIDTH = 20
 STOPPED = 0
 RUNNING = 1
 
+FONT_SIZE = 20
+
 def increase_mode():
     global mode, mode_value_label
     if mode < HIGH_THRESHOLD_MODE:
@@ -93,39 +95,39 @@ mode_frame = Frame(root)
 mode_frame.pack()
 m1.add(mode_frame)
 
-mode_label = Label(mode_frame, text="Mode", height=LABEL_HEIGHT, width=LABEL_WIDTH)
+mode_label = Label(mode_frame, text="Mode", height=LABEL_HEIGHT, width=LABEL_WIDTH, font=('Arial', FONT_SIZE))
 mode_label.pack()
-mode_value_label = Label(mode_frame, text=Mode.getModeString(mode), height=VALUE_HEIGHT, width=VALUE_WIDTH)
+mode_value_label = Label(mode_frame, text=Mode.getModeString(mode), height=VALUE_HEIGHT, width=VALUE_WIDTH, font=('Arial', FONT_SIZE))
 mode_value_label.pack()
-increase_button = Button(mode_frame, text="+", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=increase_mode)
+increase_button = Button(mode_frame, text="+", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=increase_mode, font=('Arial', FONT_SIZE))
 increase_button.pack()
-decrease_button = Button(mode_frame, text="-", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=decrease_mode)
+decrease_button = Button(mode_frame, text="-", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=decrease_mode, font=('Arial', FONT_SIZE))
 decrease_button.pack()
 
 speed_frame = Frame(root)
 speed_frame.pack()
 m1.add(speed_frame)
 
-speed_label = Label(speed_frame, text="Speed", height=LABEL_HEIGHT, width=LABEL_WIDTH)
+speed_label = Label(speed_frame, text="Speed", height=LABEL_HEIGHT, width=LABEL_WIDTH, font=('Arial', FONT_SIZE))
 speed_label.pack()
-speed_value_label = Label(speed_frame, text=speed, height=VALUE_HEIGHT, width=VALUE_WIDTH)
+speed_value_label = Label(speed_frame, text=speed, height=VALUE_HEIGHT, width=VALUE_WIDTH, font=('Arial', FONT_SIZE))
 speed_value_label.pack()
-increase_button = Button(speed_frame, text="+", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=increase_speed)
+increase_button = Button(speed_frame, text="+", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=increase_speed, font=('Arial', FONT_SIZE))
 increase_button.pack()
-decrease_button = Button(speed_frame, text="-", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=decrease_speed)
+decrease_button = Button(speed_frame, text="-", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=decrease_speed, font=('Arial', FONT_SIZE))
 decrease_button.pack()
 
 spin_frame = Frame(root)
 spin_frame.pack()
 m1.add(spin_frame)
 
-spin_label = Label(spin_frame, text="Spin", height=LABEL_HEIGHT, width=LABEL_WIDTH)
+spin_label = Label(spin_frame, text="Spin", height=LABEL_HEIGHT, width=LABEL_WIDTH, font=('Arial', FONT_SIZE))
 spin_label.pack()
-spin_value_label = Label(spin_frame, text=spin, height=VALUE_HEIGHT, width=VALUE_WIDTH)
+spin_value_label = Label(spin_frame, text=spin, height=VALUE_HEIGHT, width=VALUE_WIDTH, font=('Arial', FONT_SIZE))
 spin_value_label.pack()
-increase_button = Button(spin_frame, text="+", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=increase_spin)
+increase_button = Button(spin_frame, text="+", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=increase_spin, font=('Arial', FONT_SIZE))
 increase_button.pack()
-decrease_button = Button(spin_frame, text="-", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=decrease_spin)
+decrease_button = Button(spin_frame, text="-", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=decrease_spin, font=('Arial', FONT_SIZE))
 decrease_button.pack()
 
 status_frame = Frame(root)
@@ -134,11 +136,11 @@ m1.add(status_frame)
 
 status_label = Label(status_frame, text="Status", height=LABEL_HEIGHT, width=LABEL_WIDTH)
 status_label.pack()
-status_value_label = Label(status_frame, text=status, height=VALUE_HEIGHT, width=VALUE_WIDTH, bg='red')
+status_value_label = Label(status_frame, text=status, height=VALUE_HEIGHT, width=VALUE_WIDTH, bg='red', font=('Arial', FONT_SIZE))
 status_value_label.pack()
-play_button = Button(status_frame, text="Start", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_start)
+play_button = Button(status_frame, text="Start", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_start, font=('Arial', FONT_SIZE))
 play_button.pack()
-pause_button = Button(status_frame, text="Stop", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_stop)
+pause_button = Button(status_frame, text="Stop", height=BUTTON_HEIGHT, width=BUTTON_WIDTH, command=set_stop, font=('Arial', FONT_SIZE))
 pause_button.pack()
 
 root.mainloop()
