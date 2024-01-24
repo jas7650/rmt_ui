@@ -64,13 +64,13 @@ def decrease_spin():
 def set_start():
     global status, status_value_label
     status = RUNNING
-    status_value_label.configure(text=get_status(status))
+    status_value_label.configure(text=get_status(status), fg='green')
 
 
 def set_stop():
     global status, status_value_label
     status = STOPPED
-    status_value_label.configure(text=get_status(status))
+    status_value_label.configure(text=get_status(status), fg='red')
 
 
 def get_status(status):
