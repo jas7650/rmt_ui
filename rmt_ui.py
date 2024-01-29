@@ -11,8 +11,8 @@ HIGH_THRESHOLD = 9
 STOPPED = 0
 RUNNING = 1
 
-FONT_SIZE = 12
-PAD_SIZE = 3
+FONT_SIZE = 10
+PAD_SIZE = 2
 
 def increase_mode():
     global mode, mode_value_label
@@ -84,7 +84,8 @@ status = "Stopped"
 empty_image = PhotoImage()
 running = True
 
-screen_width = root.winfo_screenmmwidth()-15-8*PAD_SIZE
+print(f"Removed for padding: {15-10*PAD_SIZE}")
+screen_width = root.winfo_screenmmwidth()-15-10*PAD_SIZE
 screen_height = root.winfo_screenmmheight()
 
 BUTTON_WIDTH = screen_width/4
