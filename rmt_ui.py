@@ -84,8 +84,7 @@ status = "Stopped"
 empty_image = PhotoImage()
 running = True
 
-print(f"Removed for padding: {15-10*PAD_SIZE}")
-screen_width = root.winfo_screenmmwidth()-15-10*PAD_SIZE
+screen_width = root.winfo_screenmmwidth()-8*PAD_SIZE
 screen_height = root.winfo_screenmmheight()
 
 BUTTON_WIDTH = screen_width/4
@@ -145,11 +144,5 @@ play_button = Button(status_frame, image=empty_image, compound="center", text="S
 play_button.pack()
 pause_button = Button(status_frame, image=empty_image, compound="center", text="Stop", height=f"{BUTTON_HEIGHT}m", width=f"{BUTTON_WIDTH}m", command=set_stop, font=('Arial', FONT_SIZE), padx=f"{PAD_SIZE}m", pady=f"{PAD_SIZE}m")
 pause_button.pack()
-
-close_frame = Frame(root, bg="black")
-close_frame.pack()
-m1.add(close_frame)
-closebutton = Button(close_frame, image=empty_image, compound="center", text='X', height=f"{15}m", width=f"{15}m", command=root.destroy, font=('Arial', FONT_SIZE), padx=f"{PAD_SIZE}m", pady=f"{PAD_SIZE}m")
-closebutton.pack()
 
 root.mainloop()
