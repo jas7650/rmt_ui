@@ -84,7 +84,7 @@ status = "Stopped"
 empty_image = PhotoImage()
 running = True
 
-screen_width = root.winfo_screenmmwidth()-40
+screen_width = root.winfo_screenmmwidth()-15-8*PAD_SIZE
 screen_height = root.winfo_screenmmheight()
 
 BUTTON_WIDTH = screen_width/4
