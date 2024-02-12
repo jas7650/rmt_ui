@@ -1,20 +1,26 @@
-from .Mode import Mode
-
+CUT_SERVE = 0
+REVERSE_CUT_SERVE = 1
+JAM_SERVE = 2
 
 class Model(object):
 
     def __init__(self, speed_iterations, spin_iterations):
         self.speed = 0
         self.spin = 0
-        self.mode = Mode.getValues()[0]
-        self.modes = Mode.getValues()
+        self.mode = CUT_SERVE
+        self.modes = [CUT_SERVE, REVERSE_CUT_SERVE, JAM_SERVE]
         self.running = False
         self.speed_iterations = speed_iterations
         self.spin_iterations = spin_iterations
 
 
     def getMode(self):
-        return Mode.getModeString(self.mode)
+        if self.mode == CUT_SERVE:
+            return "Cut Serve"
+        elif self.mode == REVERSE_CUT_SERVE:
+            return "Reverse Cut Serve"
+        else:
+            return "Jam Serve"
     
 
     def getSpin(self):
@@ -26,7 +32,10 @@ class Model(object):
     
 
     def getRunning(self):
-        return self.running
+        if self.running:
+            return "Running"
+        else:
+            return "Stopped"
 
 
     def increase_speed(self):
