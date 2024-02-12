@@ -52,7 +52,7 @@ def set_stop():
     status_value_label.configure(text=rmt_model.getRunning(), bg='green')
 
 
-rmt_model = Model(10, 10)
+rmt_model = Model(5, 5)
 root = Tk()
 root.attributes("-fullscreen", True)
 empty_image = PhotoImage()
