@@ -43,10 +43,14 @@ class Model(object):
 
 
     def getSpinMotor(self):
+        print(f"Index: {self.spin}")
+        print(f"Spins: {self.spins}")
         return self.spins[self.spin]
 
 
     def getSpeedMotor(self):
+        print(f"Index: {self.spin}")
+        print(f"Speeds: {self.spins}")
         return self.speeds[self.speed]
 
 
