@@ -27,6 +27,7 @@ MAX_DECELERATION = 100
 
 class MotorController(object):
     def __init__(self, address):
+        self.address = address
         mc = motoron.MotoronI2C(address=address)
         # Reset the controller to its default settings, then disable CRC.  The bytes for
         # each of these commands are shown here in case you want to implement them on
@@ -62,5 +63,6 @@ class MotorController(object):
 
 
     def setSpeed(self, motor_num, speed):
+        print(f"Address: {self.address}, Motor: {motor_num}, Speed: {speed}")
         self.mc.set_speed(motor_num, speed)
         time.sleep(0.005)
