@@ -62,7 +62,7 @@ class Model(object):
 
 
     def increase_speed(self):
-        if self.speed < self.speed_iterations:
+        if self.speed < self.speed_iterations-1:
             self.speed += 1
             self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
             self.speed_motor_controller.setSpeed(2, self.getSpeedMotor())
@@ -76,7 +76,7 @@ class Model(object):
 
 
     def increase_spin(self):
-        if self.spin < self.spin_iterations:
+        if self.spin < self.spin_iterations-1:
             self.spin += 1
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
