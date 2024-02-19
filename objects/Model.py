@@ -95,9 +95,10 @@ class Model(object):
 
 
     def increment_mode(self):
+        previous_mode = self.mode
         if self.mode < len(self.modes)-1:
             self.mode += 1
-        if self.running:
+        if self.running and previous_mode != self.mode:
             self.spin_motor_controller.setSpeed(1, 0)
             self.spin_motor_controller.setSpeed(2, 0)
             time.sleep(1)
@@ -108,9 +109,10 @@ class Model(object):
     
 
     def decrement_mode(self):
+        previous_mode = self.mode
         if self.mode > 0:
             self.mode -= 1
-        if self.running:
+        if self.running and previous_mode != self.mode:
             self.spin_motor_controller.setSpeed(1, 0)
             self.spin_motor_controller.setSpeed(2, 0)
             time.sleep(1)
