@@ -1,4 +1,5 @@
 import numpy as np
+import time
 from .MotorController import MotorController
 
 CUT_SERVE = 0
@@ -96,11 +97,26 @@ class Model(object):
     def increment_mode(self):
         if self.mode < len(self.modes)-1:
             self.mode += 1
+        if self.running:
+            self.spin_motor_controller.setSpeed(1, 0)
+            self.spin_motor_controller.setSpeed(2, 0)
+            time.sleep(1)
+            self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+            self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
+
+
     
 
     def decrement_mode(self):
         if self.mode > 0:
             self.mode -= 1
+        if self.running:
+            self.spin_motor_controller.setSpeed(1, 0)
+            self.spin_motor_controller.setSpeed(2, 0)
+            time.sleep(1)
+            self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+            self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
+
 
 
     def set_start(self):
