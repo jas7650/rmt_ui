@@ -13,10 +13,13 @@ FREQUENCY_MHZ = 1/PERIOD
 FREQUENCY = 1/PERIOD_US
 print(f"Frequency: {FREQUENCY_MHZ} Mhz, {FREQUENCY} Hz")
 MIN_DUTY = round(600/PERIOD_US * 100, 2)
+CENTER_DUTY = round(1500/PERIOD_US * 100, 2)
 MAX_DUTY = round(2400/PERIOD_US * 100, 2)
 MIN_PULSE_TIME = round((PERIOD_US*MIN_DUTY)/100, 2)
+CENTER_PULSE_TIME = round((PERIOD_US*CENTER_DUTY)/100, 2)
 MAX_PULSE_TIME = round((PERIOD_US*MAX_DUTY)/100, 2)
 print(f"Min Duty Cycle: {MIN_DUTY}%, Min Pulse Time: {MIN_PULSE_TIME} us")
+print(f"Center Duty Cycle: {CENTER_DUTY}%, Center Pulse Time: {CENTER_PULSE_TIME} us")
 print(f"Max Duty Cycle: {MAX_DUTY}%, Max Pulse Time: {MAX_PULSE_TIME}us")
 
 
@@ -32,4 +35,7 @@ while 1:
     time.sleep(30)
     p.ChangeDutyCycle(MIN_DUTY)
     print("At min")
+    time.sleep(30)
+    p.ChangeDutyCycle(CENTER_DUTY)
+    print("At center")
     time.sleep(30)
