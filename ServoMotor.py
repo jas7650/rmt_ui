@@ -6,7 +6,7 @@ import time                            #calling time to provide delays in progra
 # Pulses range from 500-2500 us
 # 1500 us is centered
 # 1000-2000 us is counterclockwise
-PERIOD_US = 2500   # 5000 us
+PERIOD_US = 5000   # 5000 us
 PERIOD = PERIOD_US * pow(10, -6)
 print(f"Period: {PERIOD_US} us")
 FREQUENCY_MHZ = 1/PERIOD
