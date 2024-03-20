@@ -21,6 +21,7 @@ MAX_PULSE_TIME = round((PERIOD_US*MAX_DUTY)/100, 2)
 print(f"Min Duty Cycle: {MIN_DUTY}%, Min Pulse Time: {MIN_PULSE_TIME} us")
 print(f"Center Duty Cycle: {CENTER_DUTY}%, Center Pulse Time: {CENTER_PULSE_TIME} us")
 print(f"Max Duty Cycle: {MAX_DUTY}%, Max Pulse Time: {MAX_PULSE_TIME}us")
+SHOT_PERIOD = 10
 
 
 
@@ -32,7 +33,7 @@ p.start(0)
 while 1:
     p.ChangeDutyCycle(MAX_DUTY)
     print("At max")
-    time.sleep(15)
+    time.sleep(SHOT_PERIOD/2)
     p.ChangeDutyCycle(MIN_DUTY)
     print("At min")
-    time.sleep(15)
+    time.sleep(SHOT_PERIOD/2)
