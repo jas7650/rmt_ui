@@ -1,73 +1,48 @@
 import RPi.GPIO as IO          #calling header file which helps us use GPIO’s of PI
 import time                            #calling time to provide delays in program
-
-# Period -> 0.00333333333 seconds -> 3330 microseconds
-
-# Pulses range from 500-2500 us
-# 1500 us is centered
-# 1000-2000 us is counterclockwise
-PERIOD_US = 5000   # 5000 us
-PERIOD = PERIOD_US * pow(10, -6)
-print(f"Period: {PERIOD_US} us")
-FREQUENCY_MHZ = 1/PERIOD
-FREQUENCY = 1/PERIOD_US
-print(f"Frequency: {FREQUENCY_MHZ} Mhz, {FREQUENCY} Hz")
-MIN_DUTY = round(500/PERIOD_US * 100, 2)
-MAX_DUTY = round(2500/PERIOD_US * 100, 2)
-MIN_PULSE_TIME = round((PERIOD_US*MIN_DUTY)/100, 2)
-MAX_PULSE_TIME = round((PERIOD_US*MAX_DUTY)/100, 2)
-print(f"Min Duty Cycle: {MIN_DUTY}%, Min Pulse Time: {MIN_PULSE_TIME} us")
-print(f"Max Duty Cycle: {MAX_DUTY}%, Max Pulse Time: {MAX_PULSE_TIME}us")
+from threading import Thread
+from time import sleep
 
 
-
-IO.setwarnings(False)
-IO.setmode (IO.BCM)
-IO.setup(12,IO.OUT)
-p = IO.PWM(12,FREQUENCY_MHZ)
-p.start(0)
-while 1:
-    p.ChangeDutyCycle(MAX_DUTY)
-    print("At max")
-    time.sleep(3)
-    p.ChangeDutyCycle(MIN_DUTY)
-    print("At min")
-    time.sleep(3)
-
-
-
-# import RPi.GPIO as IO          #calling header file which helps us use GPIO’s of PI
-# import time                            #calling time to provide delays in program
-
-# Period -> 0.00333333333 seconds -> 3330 microseconds
-
-# Pulses range from 500-2500 us
-# 1500 us is centered
-# 1000-2000 us is counterclockwise
+class ServoMotor(object):
+    def __init__(self, period_us, min_duty_us, max_duty_us, shot_frequency):
+        period_us = 5000   # 5000 us
+        period = period_us * pow(10, -6)
+        frequency_mhz = 1/period
+        self.min_duty = round(min_duty_us/period_us * 100, 2)
+        self.max_duty = round(max_duty_us/period_us * 100, 2)
+        IO.setwarnings(False)
+        IO.setmode (IO.BCM)
+        IO.setup(12,IO.OUT)
+        self.p = IO.PWM(12,frequency_mhz)
+        self.p.start(0)
+        self.shot_frequency = shot_frequency
 
 
-# class ServoMotor(object):
-#     def __init__(self, period_us):
-#         period_us = 5000   # 5000 us
-#         period = period_us * pow(10, -6)
-#         frequency_mhz = 1/period
-#         frequency = 1/period_us
-#         min_duty = round(500/period_us * 100, 2)
-#         max_duty = round(2500/period_us * 100, 2)
-#         IO.setwarnings(False)
-#         IO.setmode (IO.BCM)
-#         IO.setup(12,IO.OUT)
-#         p = IO.PWM(12,frequency_mhz)
-#         p.start(0)
+    def start_feeder(self):
+        self.thread = Thread(target=self.iterate_locations)
+        self.thread.start()
 
 
-#     def drop_ball():
+    def stop_feeder(self):
+        if self.thread:
+            self.thread.join()
 
 
-# p = IO.PWM(12,frequency_mhz)
-# p.start(0)
-# while 1:
-#     p.ChangeDutyCycle(MAX_DUTY)
-#     time.sleep(10)
-#     p.ChangeDutyCycle(MIN_DUTY)
-#     time.sleep(10)
+    def iterate_locations(self):
+        while 1:
+            self.drop_ball()
+            print("At max")
+            self.load_ball()
+            print("At min")
+            time.sleep(self.shot_frequency/2)
+
+
+    def drop_ball(self):
+        self.p.ChangeDutyCycle(self.min_duty)
+        time.sleep(self.shot_frequency/2)
+
+
+    def load_ball(self):
+        self.p.ChangeDutyCycle(self.max_duty)
+        time.sleep(self.shot_frequency/2)
