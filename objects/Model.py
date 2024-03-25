@@ -1,7 +1,6 @@
 import numpy as np
 import time
 from .MotorController import MotorController
-from .ServoMotor import ServoMotor
 
 CUT_SERVE = 0
 REVERSE_CUT_SERVE = 1
@@ -25,7 +24,6 @@ class Model(object):
         self.spin_iterations = spin_iterations
         self.spin_motor_controller = MotorController(16)
         self.speed_motor_controller = MotorController(17)
-        self.servo_controller = ServoMotor(5000, 920, 1900, 10)
 
 
     def getMode(self):
@@ -68,28 +66,32 @@ class Model(object):
         if self.speed < self.speed_iterations-1:
             self.speed += 1
         if self.running:
-            self.set_start()
+            self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(2, -1*self.getSpeedMotor())
 
 
     def decrease_speed(self):
         if self.speed > 0:
             self.speed -= 1
         if self.running:
-            self.set_start()
+            self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(2, -1*self.getSpeedMotor())
 
 
     def increase_spin(self):
         if self.spin < self.spin_iterations-1:
             self.spin += 1
         if self.running:
-            self.set_start()
+            self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+            self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
 
 
     def decrease_spin(self):
         if self.spin > 0:
             self.spin -= 1
         if self.running:
-            self.set_start()
+            self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+            self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
 
 
     def increment_mode(self):
@@ -100,7 +102,8 @@ class Model(object):
             self.spin_motor_controller.setSpeed(1, 0)
             self.spin_motor_controller.setSpeed(2, 0)
             time.sleep(1)
-            self.set_start()
+            self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+            self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
 
 
     
@@ -117,13 +120,13 @@ class Model(object):
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
 
 
+
     def set_start(self):
         self.running = True
         self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
         self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
-        self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotor())
-        self.speed_motor_controller.setSpeed(2, self.getSpeedMotor())
-        self.servo_controller.start_feeder()
+        self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
+        self.speed_motor_controller.setSpeed(2, -1*self.getSpeedMotor())
 
 
     def set_stop(self):
@@ -132,4 +135,3 @@ class Model(object):
         self.spin_motor_controller.setSpeed(2, 0)
         self.speed_motor_controller.setSpeed(1, 0)
         self.speed_motor_controller.setSpeed(2, 0)
-        self.servo_controller.stop_feeder()
