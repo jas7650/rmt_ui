@@ -1,7 +1,6 @@
 import RPi.GPIO as IO          #calling header file which helps us use GPIO’s of PI
 import time                            #calling time to provide delays in program
-from threading import Thread
-from time import sleep
+import multiprocessing
 
 
 class ServoMotor(object):
@@ -20,13 +19,13 @@ class ServoMotor(object):
 
 
     def start_feeder(self):
-        self.thread = Thread(target=self.iterate_locations)
-        self.thread.start()
+        self.process = multiprocessing.Process(target=self.iterate_locations)
+        self.process.start()
 
 
     def stop_feeder(self):
-        if self.thread:
-            self.thread.join()
+        if self.process:
+            self.process.terminate()
 
 
     def iterate_locations(self):
