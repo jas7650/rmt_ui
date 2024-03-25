@@ -38,6 +38,7 @@ class MotorController(object):
         # Clear the reset flag, which is set after the controller reinitializes and
         # counts as an error.
         mc.clear_reset_flag()
+        mc.clear_motor_fault_unconditional()
 
         # By default, the Motoron is configured to stop the motors if it does not get
         # a motor control command for 1500 ms.  You can uncomment a line below to
