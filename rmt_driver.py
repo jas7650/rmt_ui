@@ -54,7 +54,7 @@ def set_stop():
 
 rmt_model = Model(5, 5)
 root = Tk()
-root.attributes("-fullscreen", True)
+# root.attributes("-fullscreen", True)
 empty_image = PhotoImage()
 
 screen_width = root.winfo_screenmmwidth()-8*PAD_SIZE
