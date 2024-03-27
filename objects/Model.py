@@ -22,8 +22,8 @@ class Model(object):
         self.running = False
         self.speed_iterations = speed_iterations
         self.spin_iterations = spin_iterations
-        self.spin_motor_controller = MotorController(16)
-        self.speed_motor_controller = MotorController(17)
+        self.spin_motor_controller = MotorController(17)
+        self.speed_motor_controller = MotorController(16)
 
 
     def getMode(self):
