@@ -63,6 +63,10 @@ class MotorController(object):
         self.mc = mc
 
 
+    def print_status(self):
+        print(self.mc.get_status_flags())
+
+
     def setSpeed(self, motor_num, speed):
         print(f"Address: {self.address}, Motor: {motor_num}, Speed: {speed}")
         self.mc.set_speed(motor_num, speed)

@@ -104,8 +104,6 @@ class Model(object):
             time.sleep(1)
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
-
-
     
 
     def decrement_mode(self):
@@ -119,6 +117,12 @@ class Model(object):
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
 
+
+    def print_status(self):
+        print("Spin Motor Status")
+        self.spin_motor_controller.print_status()
+        print("Speed Motor Status")
+        self.speed_motor_controller.print_status()
 
 
     def set_start(self):

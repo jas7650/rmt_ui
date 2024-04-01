@@ -52,6 +52,10 @@ def set_stop():
     status_value_label.configure(text=rmt_model.getRunning(), bg='green')
 
 
+def print_status():
+    rmt_model.print_status()
+
+
 rmt_model = Model(5, 5)
 root = Tk()
 root.attributes("-fullscreen", True)
@@ -117,5 +121,7 @@ play_button = Button(status_frame, image=empty_image, compound="center", text="S
 play_button.pack()
 pause_button = Button(status_frame, image=empty_image, compound="center", text="Stop", height=f"{BUTTON_HEIGHT}m", width=f"{BUTTON_WIDTH}m", command=set_stop, font=('Arial', FONT_SIZE), padx=f"{PAD_SIZE}m", pady=f"{PAD_SIZE}m")
 pause_button.pack()
+
+print_status_button = Button(root, text = "Print Status", command=print_status)
 
 root.mainloop()
