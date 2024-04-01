@@ -66,8 +66,8 @@ class Model(object):
         if self.speed < self.speed_iterations-1:
             self.speed += 1
         if self.running:
-            self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotor())
-            self.speed_motor_controller.setSpeed(2, self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(2, -1*self.getSpeedMotor())
 
 
     def decrease_speed(self):
