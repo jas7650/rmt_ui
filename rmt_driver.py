@@ -56,9 +56,9 @@ def print_status():
     rmt_model.print_status()
 
 
-rmt_model = Model(5, 5)
+rmt_model = Model(15, 15)
 root = Tk()
-# root.attributes("-fullscreen", True)
+root.attributes("-fullscreen", True)
 empty_image = PhotoImage()
 
 screen_width = root.winfo_screenmmwidth()-8*PAD_SIZE
@@ -121,8 +121,5 @@ play_button = Button(status_frame, image=empty_image, compound="center", text="S
 play_button.pack()
 pause_button = Button(status_frame, image=empty_image, compound="center", text="Stop", height=f"{BUTTON_HEIGHT}m", width=f"{BUTTON_WIDTH}m", command=set_stop, font=('Arial', FONT_SIZE), padx=f"{PAD_SIZE}m", pady=f"{PAD_SIZE}m")
 pause_button.pack()
-
-print_status_button = Button(root, text = "Print Status", command=print_status)
-print_status_button.pack()
 
 root.mainloop()
