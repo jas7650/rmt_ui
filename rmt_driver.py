@@ -56,7 +56,7 @@ def print_status():
     rmt_model.print_status()
 
 
-rmt_model = Model(15, 15)
+rmt_model = Model(10, 10)
 root = Tk()
 root.attributes("-fullscreen", True)
 empty_image = PhotoImage()
