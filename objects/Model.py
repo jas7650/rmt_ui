@@ -140,8 +140,8 @@ class Model(object):
 
 
     def set_stop(self):
+        while self.speed > 0:
+            self.decrease_speed()
+        while self.spin > 0:
+            self.decrease_spin()
         self.running = False
-        self.spin_motor_controller.setSpeed(1, 0)
-        self.spin_motor_controller.setSpeed(2, 0)
-        self.speed_motor_controller.setSpeed(1, 0)
-        self.speed_motor_controller.setSpeed(2, 0)
