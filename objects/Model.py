@@ -45,9 +45,9 @@ class Model(object):
 
     def getSpinMotor(self):
         if self.mode == CUT_SERVE:
-            return self.spins[self.spin] * -1
-        elif self.mode == REVERSE_CUT_SERVE:
             return self.spins[self.spin]
+        elif self.mode == REVERSE_CUT_SERVE:
+            return self.spins[self.spin] * -1
         else:
             return 0
 
