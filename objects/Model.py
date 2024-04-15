@@ -141,9 +141,13 @@ class Model(object):
 
     def set_stop(self):
         self.running = False
-        while self.getSpin() > 0 or self.getSpin() > 0:
-            if self.getSpin() > 0:
-                self.decrease_spin()
-            if self.getSpeed() > 0:
-                self.decrease_speed()
-            time.sleep(2)
+        while self.spin > 0 or self.speed > 0:
+            if self.spin > 0:
+                self.spin -= 1
+                self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+                self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
+            if self.speed > 0:
+                self.speed -= 1
+                self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
+                self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
+            time.sleep(1)
