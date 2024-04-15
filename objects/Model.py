@@ -45,9 +45,9 @@ class Model(object):
 
     def getSpinMotor(self):
         if self.mode == CUT_SERVE:
-            return self.spins[self.spin]
-        elif self.mode == REVERSE_CUT_SERVE:
             return self.spins[self.spin] * -1
+        elif self.mode == REVERSE_CUT_SERVE:
+            return self.spins[self.spin]
         else:
             return 0
 
@@ -66,16 +66,16 @@ class Model(object):
         if self.speed < self.speed_iterations-1:
             self.speed += 1
         if self.running:
-            self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
-            self.speed_motor_controller.setSpeed(2, -1*self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(2, self.getSpeedMotor())
 
 
     def decrease_speed(self):
         if self.speed > 0:
             self.speed -= 1
         if self.running:
-            self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
-            self.speed_motor_controller.setSpeed(2, -1*self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotor())
+            self.speed_motor_controller.setSpeed(2, self.getSpeedMotor())
 
 
     def increase_spin(self):
@@ -129,8 +129,8 @@ class Model(object):
         self.running = True
         self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
         self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
-        self.speed_motor_controller.setSpeed(1, self.getSpeedMotor())
-        self.speed_motor_controller.setSpeed(2, -1*self.getSpeedMotor())
+        self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotor())
+        self.speed_motor_controller.setSpeed(2, self.getSpeedMotor())
 
 
     def set_stop(self):
