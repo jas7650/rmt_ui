@@ -14,8 +14,8 @@ class Model(object):
         self.speed = 0
         self.top_speeds = [(int)(value) for value in np.arange(MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/(speed_iterations-1))]
         self.top_speeds.append(800)
-        self.bottom_speeds = [(int)(value/2) for value in np.arange(MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/(speed_iterations-1))]
-        self.bottom_speeds.append(800)
+        self.bottom_speeds = [(int)(value/2) for value in np.arange(MIN_SPEED, MAX_SPEED/2, (MAX_SPEED/2-MIN_SPEED)/(speed_iterations-1))]
+        self.bottom_speeds.append(400)
         self.spins = [(int)(value) for value in np.arange(MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/(spin_iterations-1))]
         self.spins.append(800)
         self.spin = 0
@@ -141,13 +141,7 @@ class Model(object):
 
     def set_stop(self):
         self.running = False
-        while self.spin > 0 or self.speed > 0:
-            if self.spin > 0:
-                self.spin -= 1
-                self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
-                self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
-            if self.speed > 0:
-                self.speed -= 1
-                self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
-                self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
-            time.sleep(1)
+        self.spin_motor_controller.setSpeed(1, 0)
+        self.spin_motor_controller.setSpeed(2, 0)
+        self.speed_motor_controller.setSpeed(1, 0)
+        self.speed_motor_controller.setSpeed(2, 0)
