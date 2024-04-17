@@ -70,4 +70,4 @@ class MotorController(object):
     def setSpeed(self, motor_num, speed):
         print(f"Address: {self.address}, Motor: {motor_num}, Speed: {speed}")
         self.mc.set_speed(motor_num, speed)
-        time.sleep(0.5)
+        time.sleep(0.25)
