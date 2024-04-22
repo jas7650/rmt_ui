@@ -59,7 +59,7 @@ def main():
         for tile in row_tiles:
             tile.process()
     while True:
-        drawGUI(tiles, BLOCK_WIDTH, BLOCK_HEIGHT)
+        rects = drawGUI(tiles, BLOCK_WIDTH, BLOCK_HEIGHT)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -68,10 +68,17 @@ def main():
 
 
 def drawGUI(tiles, BLOCK_WIDTH, BLOCK_HEIGHT):
+    rects = []
     for row in range(0, 4):
+        row_rects = []
         for col in range(0, 4):
-            rect = pygame.Rect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT)
-            pygame.draw.rect(SCREEN, BLACK, rect, 2)
+            outline = pygame.Rect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT)
+            button = pygame.Rect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH-2, BLOCK_HEIGHT-2)
+            pygame.draw.rect(SCREEN, BLACK, outline, 2)
+            pygame.draw.rect(SCREEN, WHITE, button)
+            row_rects.append(button)
+        rects.append(row_rects)
+    return np.asarray(rects)
 
 
 if __name__ == "__main__":

@@ -17,13 +17,13 @@ class RMTButton(object):
         self.screen = screen
         self.rmt_model = rmt_model
         self.font = pygame.font.SysFont('Arial', 25)
-        self.surface = pygame.Surface((self.width, self.height))
-        self.rect = pygame.Rect(self.row*self.width, self.col*self.height, self.width, self.height)
 
 
     def process(self):
-        color = WHITE
-        text = self.font.render(self.rmt_model.getText(self.row, self.col), True, BLACK, WHITE)
-        self.surface.fill(color)
-        self.surface.blit(text, self.rect)
-        self.screen.blit(self.surface, self.rect)
+        self.text = self.font.render(self.rmt_model.getText(self.row, self.col), True, BLACK, WHITE)
+        self.rect = self.text.get_rect()
+        self.rect.update(self.col * self.width + self.width/2.0, self.row * self.height + self.height/2.0, self.width, self.height)
+        print(type(self.rect))
+        print(type(self.text))
+        self.screen.blit(self.text, (self.col * self.width + self.width/2.0, self.row * self.height + self.height/2.0))
+        self.screen.blit()
