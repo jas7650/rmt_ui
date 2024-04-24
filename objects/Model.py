@@ -15,8 +15,9 @@ class Model(object):
         self.current_speed = 0
         self.top_speeds = [(int)(value) for value in np.arange(MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/(speed_iterations-1))]
         self.top_speeds.append(800)
-        self.bottom_speeds = [(int)(value/2) for value in np.arange(MIN_SPEED, MAX_SPEED/2, (MAX_SPEED/2-MIN_SPEED)/(speed_iterations-1))]
-        self.bottom_speeds.append(400)
+        self.botttom_speeds = self.top_speeds.copy()
+        # self.bottom_speeds = [(int)(value/2) for value in np.arange(MIN_SPEED, MAX_SPEED/2, (MAX_SPEED/2-MIN_SPEED)/(speed_iterations-1))]
+        # self.bottom_speeds.append(400)
         self.spins = [(int)(value) for value in np.arange(MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/(spin_iterations-1))]
         self.spins.append(800)
         self.spin = 0
