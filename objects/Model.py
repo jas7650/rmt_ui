@@ -12,16 +12,14 @@ class Model(object):
 
     def __init__(self, speed_iterations, spin_iterations):
         self.speed = 0
-        self.current_speed = 0
+        self.desired_speed = 0
         self.top_speeds = [(int)(value) for value in np.arange(MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/(speed_iterations-1))]
         self.top_speeds.append(800)
         self.bottom_speeds = self.top_speeds.copy()
-        # self.bottom_speeds = [(int)(value/2) for value in np.arange(MIN_SPEED, MAX_SPEED/2, (MAX_SPEED/2-MIN_SPEED)/(speed_iterations-1))]
-        # self.bottom_speeds.append(400)
         self.spins = [(int)(value) for value in np.arange(MIN_SPEED, MAX_SPEED, (MAX_SPEED-MIN_SPEED)/(spin_iterations-1))]
         self.spins.append(800)
         self.spin = 0
-        self.current_spin = 0
+        self.desired_spin = 0
         self.mode = CUT_SERVE
         self.modes = [CUT_SERVE, REVERSE_CUT_SERVE, JAM_SERVE]
         self.running = False
@@ -89,38 +87,42 @@ class Model(object):
 
 
     def increase_speed(self):
-        if self.speed < self.speed_iterations-1:
-            self.speed += 1
+        if self.desired_speed < self.speed_iterations-1:
+            self.desired_speed += 1
         self.update_text_array()
         if self.running:
+            self.speed = self.desired_speed
             self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
             self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
 
 
 
     def decrease_speed(self):
-        if self.speed > 0:
-            self.speed -= 1
+        if self.desired_speed > 0:
+            self.desired_speed -= 1
         self.update_text_array()
         if self.running:
+            self.speed = self.desired_speed
             self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
             self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
 
 
     def increase_spin(self):
-        if self.spin < self.spin_iterations-1:
-            self.spin += 1
+        if self.desired_spin < self.spin_iterations-1:
+            self.desired_spin += 1
         self.update_text_array()
         if self.running:
+            self.spin = self.desired_spin
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
 
 
     def decrease_spin(self):
-        if self.spin > 0:
-            self.spin -= 1
+        if self.desired_spin > 0:
+            self.desired_spin -= 1
         self.update_text_array()
         if self.running:
+            self.spin = self.desired_spin
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
 
@@ -161,19 +163,30 @@ class Model(object):
 
     def set_start(self):
         self.running = True
+        while self.speed < self.desired_speed:
+            print(f"Speed: {self.speed}, Desired: {self.desired_speed}")
+            self.speed += 1
+            self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
+            self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
+        while self.spin < self.desired_spin:
+            print(f"Spin: {self.spin}, Desired: {self.desired_spin}")
+            self.spin += 1
+            self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+            self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
         self.update_text_array()
-        self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
-        self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
-        self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
-        self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
-
 
 
     def set_stop(self):
+        while self.speed > 0:
+            print(f"Speed: {self.speed}, Desired: 0")
+            self.speed -= 1
+            self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
+            self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
+        while self.spin > 0:
+            print(f"Spin: {self.spin}, Desired: 0")
+            self.spin -= 1
+            self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
+            self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
         self.running = False
         self.update_text_array()
-        self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
-        self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
-        self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
-        self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
 
