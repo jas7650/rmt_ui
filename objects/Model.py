@@ -94,6 +94,7 @@ class Model(object):
             self.speed = self.desired_speed
             self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
             self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
+        self.update_text_array()
 
 
 
@@ -105,6 +106,7 @@ class Model(object):
             self.speed = self.desired_speed
             self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
             self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
+        self.update_text_array()
 
 
     def increase_spin(self):
@@ -115,6 +117,7 @@ class Model(object):
             self.spin = self.desired_spin
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
+        self.update_text_array()
 
 
     def decrease_spin(self):
@@ -125,6 +128,7 @@ class Model(object):
             self.spin = self.desired_spin
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
+        self.update_text_array()
 
 
     def increment_mode(self):
