@@ -1,8 +1,10 @@
 import pygame
 import numpy as np
 import sys
+from objects.Model import Model
 from objects.ModelTemp import ModelTemp
 import math
+import argparse
 
 BLACK = pygame.Color('black')
 WHITE = pygame.Color('grey')
@@ -14,6 +16,14 @@ BROWN = pygame.Color('burlywood4')
 
 def main():
     global SCREEN, CLOCK
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-w', dest="windows", default=False, action='store_true', required=False, help="Specify to run on windows")
+    args = parser.parse_args()
+    if args.windows == True:
+        rmt_model = ModelTemp(10, 10)
+    else:
+        rmt_model = Model(10, 10)
+
     pygame.init()
     info = pygame.display.Info()
     screen_width, screen_height = info.current_w, info.current_h
@@ -24,8 +34,6 @@ def main():
     SCREEN = pygame.display.set_mode((screen_width, screen_height))
     CLOCK = pygame.time.Clock()
 
-    rmt_model = ModelTemp(10, 10)
-
     while True:
         drawGUI(BLOCK_WIDTH, BLOCK_HEIGHT, rmt_model)
         for event in pygame.event.get():
@@ -34,7 +42,6 @@ def main():
                     x, y = pygame.mouse.get_pos()
                     row = math.floor(y/BLOCK_HEIGHT)
                     col = math.floor(x/BLOCK_WIDTH)
-                    print(f"Row: {row}, Col: {col}")
                     if row == 2:
                         if col == 0:
                             rmt_model.increment_mode()
