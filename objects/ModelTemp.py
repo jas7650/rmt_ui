@@ -134,11 +134,9 @@ class ModelTemp(object):
 
     def set_stop(self):
         while self.speed > 0:
-            print(f"Speed: {self.speed}, Desired: 0")
             self.speed -= 1
             self.update_text_array()
         while self.spin > 0:
-            print(f"Spin: {self.spin}, Desired: 0")
             self.spin -= 1
             self.update_text_array()
         self.running = False
