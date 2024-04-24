@@ -31,7 +31,7 @@ def main():
     BLOCK_WIDTH = screen_width/4
     BLOCK_HEIGHT = screen_height/4
 
-    SCREEN = pygame.display.set_mode((screen_width, screen_height))
+    SCREEN = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     CLOCK = pygame.time.Clock()
 
     while True:
