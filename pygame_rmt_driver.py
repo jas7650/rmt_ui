@@ -2,7 +2,7 @@ import pygame
 import numpy as np
 import sys
 from objects.ModelTemp import ModelTemp
-from objects.RMTButton import RMTButton
+import math
 
 BLACK = pygame.Color('black')
 WHITE = pygame.Color('grey')
@@ -25,60 +25,56 @@ def main():
     CLOCK = pygame.time.Clock()
 
     rmt_model = ModelTemp(10, 10)
-    tiles = []
-    label_tiles = []
-    label_tiles.append(RMTButton(0, 0, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    label_tiles.append(RMTButton(0, 1, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    label_tiles.append(RMTButton(0, 2, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    label_tiles.append(RMTButton(0, 3, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    tiles.append(label_tiles)
 
-    label_values = []
-    label_values.append(RMTButton(1, 0, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    label_values.append(RMTButton(1, 1, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    label_values.append(RMTButton(1, 2, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    label_values.append(RMTButton(1, 3, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    tiles.append(label_values)
-
-    increase_buttons = []
-    increase_buttons.append(RMTButton(2, 0, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    increase_buttons.append(RMTButton(2, 1, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    increase_buttons.append(RMTButton(2, 2, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    increase_buttons.append(RMTButton(2, 3, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    tiles.append(increase_buttons)
-
-    decrease_buttons = []
-    decrease_buttons.append(RMTButton(3, 0, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    decrease_buttons.append(RMTButton(3, 1, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    decrease_buttons.append(RMTButton(3, 2, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    decrease_buttons.append(RMTButton(3, 3, BLOCK_WIDTH, BLOCK_HEIGHT, SCREEN, rmt_model))
-    tiles.append(decrease_buttons)
-
-    tiles = np.asarray(tiles)
-    for row_tiles in tiles:
-        for tile in row_tiles:
-            tile.process()
     while True:
-        rects = drawGUI(tiles, BLOCK_WIDTH, BLOCK_HEIGHT)
+        drawGUI(BLOCK_WIDTH, BLOCK_HEIGHT, rmt_model)
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    x, y = pygame.mouse.get_pos()
+                    row = math.floor(y/BLOCK_HEIGHT)
+                    col = math.floor(x/BLOCK_WIDTH)
+                    print(f"Row: {row}, Col: {col}")
+                    if row == 2:
+                        if col == 0:
+                            rmt_model.increment_mode()
+                        elif col == 1:
+                            rmt_model.increase_speed()
+                        elif col == 2:
+                            rmt_model.increase_spin()
+                        else:
+                            rmt_model.set_start()
+                    elif row == 3:
+                        if col == 0:
+                            rmt_model.decrement_mode()
+                        elif col == 1:
+                            rmt_model.decrease_speed()
+                        elif col == 2:
+                            rmt_model.decrease_spin()
+                        else:
+                            rmt_model.set_stop()
+
+
+            elif event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
         pygame.display.update()
 
 
-def drawGUI(tiles, BLOCK_WIDTH, BLOCK_HEIGHT):
-    rects = []
+def drawGUI(BLOCK_WIDTH, BLOCK_HEIGHT, rmt_model):
+    font = pygame.font.SysFont('Arial', 25)
     for row in range(0, 4):
-        row_rects = []
         for col in range(0, 4):
             outline = pygame.Rect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH, BLOCK_HEIGHT)
             button = pygame.Rect(col*BLOCK_WIDTH, row*BLOCK_HEIGHT, BLOCK_WIDTH-2, BLOCK_HEIGHT-2)
+            
+            text = font.render(rmt_model.getText(row, col), True, BLACK, WHITE)
+            text_rect = text.get_rect(center = button.center)
+            
             pygame.draw.rect(SCREEN, BLACK, outline, 2)
             pygame.draw.rect(SCREEN, WHITE, button)
-            row_rects.append(button)
-        rects.append(row_rects)
-    return np.asarray(rects)
+
+            SCREEN.blit(text, text_rect)
 
 
 if __name__ == "__main__":
