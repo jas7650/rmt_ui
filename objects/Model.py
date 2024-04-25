@@ -176,14 +176,14 @@ class Model(object):
 
 
     def set_stop(self):
-        while self.speed > 0:
-            self.speed -= 1
-            self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
-            self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
         while self.spin > 0:
             self.spin -= 1
             self.spin_motor_controller.setSpeed(1, self.getSpinMotor())
             self.spin_motor_controller.setSpeed(2, self.getSpinMotor())
+        while self.speed > 0:
+            self.speed -= 1
+            self.speed_motor_controller.setSpeed(1, -1*self.getSpeedMotorTop())
+            self.speed_motor_controller.setSpeed(2, self.getSpeedMotorBottom())
         self.running = False
         self.update_text_array()
 

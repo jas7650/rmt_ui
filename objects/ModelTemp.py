@@ -1,5 +1,6 @@
 import numpy as np
 import time
+from objects.ServoMotorTemp import ServoMotorTemp
 
 CUT_SERVE = 0
 REVERSE_CUT_SERVE = 1
@@ -26,6 +27,7 @@ class ModelTemp(object):
         self.speed_iterations = speed_iterations
         self.spin_iterations = spin_iterations
         self.update_text_array()
+        self.servo_motor = ServoMotorTemp(5000)
 
 
     def update_text_array(self):
@@ -129,15 +131,17 @@ class ModelTemp(object):
             print(f"Spin: {self.spin}, Desired: {self.desired_spin}")
             self.spin += 1
             self.update_text_array()
+        self.servo_motor.set_start()
         self.update_text_array()
 
 
     def set_stop(self):
-        while self.speed > 0:
-            self.speed -= 1
-            self.update_text_array()
         while self.spin > 0:
             self.spin -= 1
             self.update_text_array()
+        while self.speed > 0:
+            self.speed -= 1
+            self.update_text_array()
         self.running = False
+        self.servo_motor.set_stop()
         self.update_text_array()
